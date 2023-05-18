@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- CSS Libraries -->
+  <link rel="stylesheet" href="../node_modules/prismjs/themes/prism.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -19,7 +20,7 @@
 <body>
   <div id="app">
     <div class="main-wrapper">
-      <div class="navbar-bg"></div>
+      <div class="navbar-bg bg-dark"></div>
       
       @include('partials.navbar')
       @include('partials.sidebar')
@@ -30,7 +31,7 @@
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+          Copyright &copy; 2023 <div class="bullet"></div> PT. Sixty Six Paradise Investasi.</a>
         </div>
         <div class="footer-right">
           2.3.0
@@ -54,5 +55,6 @@
   <script src="../assets/js/custom.js"></script>
 
   <!-- Page Specific JS File -->
+  <script src="../assets/js/page/bootstrap-modal.js"></script>
 </body>
 </html>
