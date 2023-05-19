@@ -23,10 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return view('home');
+        return redirect()->route('wo.received');
     }
     public function adminDashboard()
     {
-        return view('admin.dashboard');
+        return redirect()->route('wo.report');
     }
 }

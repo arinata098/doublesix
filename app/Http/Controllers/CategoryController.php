@@ -18,7 +18,7 @@ class CategoryController extends Controller
         return view('admin.work.category.index', [
             'title' => 'Category',
             'categories' => $categories,
-            'section' => 'Work Order',
+            'section' => 'Category',
             'desc' => 'This page is used to edit the master category data',
             'active' => 'Work Order'
         ]);
@@ -28,7 +28,7 @@ class CategoryController extends Controller
     {
         return view('admin.work.category.create', [
             'title' => 'Category',
-            'section' => 'Work Order',
+            'section' => 'Category',
             'desc' => 'This page is used to edit the master category data',
             'active' => 'Work Order'
         ]);

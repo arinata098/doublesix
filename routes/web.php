@@ -21,11 +21,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('is_admin');
+Route::get('/wo/request', [App\Http\Controllers\WorkOrderController::class, 'request'])->name('wo.request');
+Route::post('/wo/store', [App\Http\Controllers\WorkOrderController::class, 'store'])->name('wo.store');
+Route::get('/wo/received', [App\Http\Controllers\WorkOrderController::class, 'received'])->name('wo.received');
+Route::get('/wo_edit/{id}', [App\Http\Controllers\WorkOrderController::class, 'edit'])->name('wo.edit');
+Route::post('/wo_update/{id}', [App\Http\Controllers\WorkOrderController::class, 'update'])->name('wo.update');
+
 
 Route::middleware('is_admin')->group(function () {
     // dashboard
     Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('/wo/report', [App\Http\Controllers\WorkOrderController::class, 'report'])->name('wo.report');
+    Route::get('/wo_detail/{id}', [App\Http\Controllers\WorkOrderController::class, 'detail'])->name('wo.detail');
 
     // master department
     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'])->name('master.user');

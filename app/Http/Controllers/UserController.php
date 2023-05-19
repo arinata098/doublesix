@@ -88,7 +88,7 @@ class UserController extends Controller
 
         } catch(Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
+            // dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage())->withInput();
         }
     }
