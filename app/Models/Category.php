@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'departments';
-    protected $primaryKey = 'idDept';
+    protected $table = 'categories';
+    protected $primaryKey = 'idCategory';
 
     protected $fillable = [
-        'deptName',
+        'cateName',
         'description'
     ];
 
@@ -21,9 +21,4 @@ class Department extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
-
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
 }

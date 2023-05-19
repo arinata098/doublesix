@@ -16,9 +16,9 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Master Data</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="#">User</a></li>
+              <li><a class="nav-link" href="{{ route('master.user') }}">User</a></li>
               <li><a class="nav-link" href="{{ route('master.department') }}">Department</a></li>
-              <li><a class="nav-link" href="#">Jabatan</a></li>
+              <li><a class="nav-link" href="{{ route('master.position') }}">Position</a></li>
               <li><a class="nav-link" href="{{ route('master.location') }}">Location</a></li>
             </ul>
           </li>
@@ -27,7 +27,7 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Work Order</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="#">Kategori WO</a></li>
+              <li><a class="nav-link" href="{{ route('work.category') }}">Kategori WO</a></li>
               <li><a class="nav-link" href="#">WO</a></li>
             </ul>
           </li>
@@ -43,9 +43,14 @@
         </ul>
 
         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-          <a href="#" class="btn btn-danger btn-lg btn-block btn-icon-split">
+          <a href="{{ route('logout') }}" class="btn btn-danger btn-lg btn-block btn-icon-split" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt"></i> Logout
           </a>
         </div>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+      </form>
     </aside>
   </div>
