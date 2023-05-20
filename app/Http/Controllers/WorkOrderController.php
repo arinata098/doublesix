@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Department;
 use App\Models\Location;
 use App\Models\Category;
@@ -13,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Carbon\Carbon;
+
 
 class WorkOrderController extends Controller
 {
@@ -138,14 +139,59 @@ class WorkOrderController extends Controller
         
     }
 
-    public function report()
+    public function report(Request $request)
     {
-        // data workorder
-        $woPending = WorkOrder::where('status', 0)->count();
-        $woProgress = WorkOrder::where('status', 1)->count();
-        $woDone = WorkOrder::where('status', 2)->count();
+        // dd($request);
+        if ($request->awal && $request->akhir && $request->idCategory) {
+            // get data wo dengan tanggal dan category
+            $startDate = $request->awal;
+            $endDate = $request->akhir;
 
-        $workOrders = WorkOrder::with('categoryWo')->get();
+            $woPending = WorkOrder::where('status', 0)
+                            ->where('idCategory', $request->idCategory)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+            $woProgress = WorkOrder::where('status', 1)
+                            ->where('idCategory', $request->idCategory)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+            $woDone = WorkOrder::where('status', 2)
+                            ->where('idCategory', $request->idCategory)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+                            
+            $workOrders = WorkOrder::with('categoryWo')
+                            ->where('idCategory', $request->idCategory)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->get();
+        } elseif ($request->awal && $request->akhir) {
+            // get data wo dengan tanggal
+            $startDate = $request->awal;
+            $endDate = $request->akhir;
+
+            $woPending = WorkOrder::where('status', 0)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+            $woProgress = WorkOrder::where('status', 1)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+            $woDone = WorkOrder::where('status', 2)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+                            
+            $workOrders = WorkOrder::with('categoryWo')
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->get();
+        } else {
+            // data semua workorder
+            $woPending = WorkOrder::where('status', 0)->count();
+            $woProgress = WorkOrder::where('status', 1)->count();
+            $woDone = WorkOrder::where('status', 2)->count();
+
+            $workOrders = WorkOrder::with('categoryWo')->get();
+        }
+        
+        $categoryCollection = Category::all();
 
         return view('user.work_order.report', [
             'title' => 'Report',
@@ -153,8 +199,9 @@ class WorkOrderController extends Controller
             'woProgress' => $woProgress,
             'woDone' => $woDone,
             'workOrders' => $workOrders,
+            'categoryCollection' => $categoryCollection,
             'section' => 'Work Order',
-            'desc' => 'This page is used to see received work order request',
+            'desc' => 'Report work order request',
             'active' => 'Work Order'
         ]);
     }

@@ -11,10 +11,67 @@
   </div>
 
   <div class="section-body">
-    <h2 class="section-title">{{ $section }}</h2>
-    <p class="section-lead">
-      {{ $desc }}
-    </p>
+    <div class="d-flex flex-row justify-content-between">
+      <div class="d-none d-md-block col-lg-4">
+        <h2 class="section-title">{{ $section }}</h2>
+        <p class="section-lead">
+          {{ $desc }}
+        </p>
+      </div>
+      <!--begin::Wrapper-->
+      <div class="py-3 d-sm-block col-lg-8">
+        <form action="{{ route('wo.report') }}" method="GET">
+          {{-- <div class="d-flex justify-content-end"> --}}
+          <div class="row justify-content-end">
+            <!--begin::Input group-->
+            <div class="mb-10 col-lg-3 mr-2">
+              <!--begin::Input-->
+              <div class="position-relative d-inline align-items-center">
+                <!--begin::Datepicker-->
+                <label class="mt-2">Category</label>
+                <select name="idCategory" class="form-control select2 @error('idCategory') is-invalid @enderror">
+                  <option value="" selected>Select Category</option>
+                      @foreach ($categoryCollection as $category)
+                      <option value="{{ $category->idCategory }}" @if ($category->idCategory == old('category')) selected
+                          @endif>{{ $category->cateName }}</option>
+                      @endforeach
+              </select>
+                <!--end::Datepicker-->
+              </div>
+              <!--end::Input-->
+            </div>
+            <div class="mb-10 col-lg-3 mr-2">
+              <!--begin::Input-->
+              <div class="position-relative d-inline align-items-center">
+                <!--begin::Datepicker-->
+                <label class="mt-2">From Date</label>
+                <input class="form-control form-control-solid ps-12" required type="date" placeholder="Select a date" name="awal" />
+                <!--end::Datepicker-->
+              </div>
+              <!--end::Input-->
+            </div>
+            <!--end::Input group-->
+            <!--begin::Input group-->
+            <div class="mb-10 col-lg-3 mr-2">
+              <!--begin::Input-->
+              <div class="position-relative d-inline align-items-center">
+                <!--begin::Datepicker-->
+                <label class="mt-2">To Date</label>
+                <input class="form-control form-control-solid ps-12" required type="date" placeholder="Select a date" name="akhir" />
+                <!--end::Datepicker-->
+              </div>
+              <!--end::Input-->
+            </div>
+            <!--end::Input group-->
+          </div>
+          <div class="d-block mt-2 mr-1" style="text-align: end">
+            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+          </div>
+          <!--end::Actions-->
+        </form>
+      </div>
+      <!--end::Button-->
+    </div>
     @if (\Session::has('successUpdate'))
             <div class="alert alert-info">
               Data Update successfully..
