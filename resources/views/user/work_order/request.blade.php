@@ -75,7 +75,10 @@
                       <div class="form-group col-lg-6">
                         <label>From Department</label>
                         <select class="form-control select2" disabled required>
-                              <option value="{{ Auth::user()->idDept }}" >{{ Auth::user()->idDept }}</option>
+                              @foreach ($departmentCollection as $department)
+                              <option value="{{ $department->idDept }}" @if ($department->idDept == Auth::user()->idDept) selected
+                                  @endif>{{ $department->deptName }}</option>
+                              @endforeach
                         </select>
                         @error('fromDept')
                           <span class="invalid-feedback" role="alert">
