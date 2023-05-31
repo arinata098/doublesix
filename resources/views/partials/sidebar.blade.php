@@ -34,14 +34,14 @@
 
             </ul>
           </li>
-          <li class="{{ ($section === "Report") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.report') }}"><i class="fas fa-pencil-ruler"></i> <span>Report</span></a></li>
+          <li class="{{ ($section === "Report") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.report') }}"><i class="fas fa-layer-group"></i> <span>Report</span></a></li>
          
           @else
          
           <li class="menu-header">Work Order</li>
           <li class="{{ ($section === "Received") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.received') }}"><i class="fas fa-layer-group"></i> <span>Received</span></a></li>
           <li class="{{ ($section === "Request") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.request') }}"><i class="fas fa-pencil-alt"></i> <span>Request</span></a></li>
-          <li class="{{ ($section === "My Request") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.my_request') }}"><i class="fas fa-pencil-ruler"></i> <span>My Request</span></a></li>
+          <li class="{{ ($section === "My Request") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.my_request') }}"><i class="fas fa-splotch"></i> <span>My Request</span></a></li>
               
           @endif
         </ul>

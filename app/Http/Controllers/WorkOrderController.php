@@ -201,7 +201,7 @@ class WorkOrderController extends Controller
             'woDone' => $woDone,
             'workOrders' => $workOrders,
             'categoryCollection' => $categoryCollection,
-            'section' => 'Work Order',
+            'section' => 'Report',
             'desc' => 'Report work order request',
             'active' => 'Report'
         ]);
@@ -239,7 +239,7 @@ class WorkOrderController extends Controller
             'woDone' => $woDone,
             'workOrders' => $workOrders,
             'categoryCollection' => $categoryCollection,
-            'section' => 'Work Order',
+            'section' => 'My Request',
             'desc' => 'My request work order',
             'active' => 'My Request'
         ]);
