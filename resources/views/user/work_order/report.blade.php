@@ -147,7 +147,7 @@
                       <td><div class="badge badge-success">Done</div></td>
                     @endif
                     <td>
-                      <a href="{{ route('wo.detail', $workOrder->idWorkOrder) }}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-eye"></i></a>
+                      <a href="{{ route('wo.detail', $workOrder->idWorkOrder) }}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="View"><i class="fas fa-eye"></i></a>
                     </td>
                   </tr>
                   @endforeach

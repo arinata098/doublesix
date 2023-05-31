@@ -50,7 +50,6 @@
                     <div class="form-group">
                         <label>Title</label>
                         <input type="text" disabled class="form-control" value="{{ $workOrder->workOrderName }}" >
-
                     </div>
                     <div class="form-group">
                         <label>Category</label>
@@ -79,14 +78,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Hourly Estimate</label>
-                        <input type="text" class="form-control" value="{{ $workOrder->estimate }} Hours" disabled>
-                    </div>
-                    <div class="form-group">
                         <label>Description</label>
                         <input type="text" class="form-control" value="{{ $workOrder->description }}" disabled></input>
                     </div>
-
                     <div class="form-group">
                         <label>Date End</label>
                         <input type="date" readonly class="form-control @error('endWorkOrder') is-invalid @enderror" name="endWorkOrder" id="tanggal" required>
@@ -94,6 +88,15 @@
                     <div class="form-group">
                         <label>completeBy</label>
                         <input type="text" readonly class="form-control @error('completeBy') is-invalid @enderror" name="completeBy" value="{{ Auth::user()->name }}" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Hourly Estimate</label>
+                      <input type="number" id="estimate_hours" pattern="[0-9]" class="form-control @error('estimate') is-invalid @enderror" name="estimate" value="{{ $workOrder->estimate }}" required>
+                      @error('estimate')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
                     </div>
                     <div class="form-group">
                     <label>Status</label>

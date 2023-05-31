@@ -45,7 +45,7 @@ class WorkOrderController extends Controller
             'fromDept' => 'required',
             'toDept' => 'required',
             'idLocation' => 'required',
-            'estimate' => 'required|string|max:255',
+            // 'estimate' => 'required|string|max:255',
             'description' => 'required',
             'userId' => 'required',
             'startWorkOrder' => 'required|date',
@@ -69,7 +69,7 @@ class WorkOrderController extends Controller
                 'idCategory' => $request->idCategory,
                 'idLocation' => $request->idLocation,
                 'startWorkOrder' => $request->startWorkOrder,
-                'estimate' => $request->estimate,
+                // 'estimate' => $request->estimate,
                 'description' => $request->description,
             ]);
 
@@ -126,6 +126,7 @@ class WorkOrderController extends Controller
         try{
             $workOrder->endWorkOrder = $request->endWorkOrder;
             $workOrder->completeBy = $request->completeBy;
+            $workOrder->estimate = $request->estimate;
             $workOrder->status = $request->status;
             $workOrder->note = $request->note;
             
@@ -202,7 +203,7 @@ class WorkOrderController extends Controller
             'categoryCollection' => $categoryCollection,
             'section' => 'Work Order',
             'desc' => 'Report work order request',
-            'active' => 'Work Order'
+            'active' => 'Report'
         ]);
     }
 
@@ -218,6 +219,29 @@ class WorkOrderController extends Controller
             'section' => 'Work Order',
             'desc' => 'This page is used to see received work order request',
             'active' => 'Work Order'
+        ]);
+    }
+
+    public function my_request()
+    {
+        $woPending = WorkOrder::where('status', 0)->where('userId', auth()->user()->id)->count();
+        $woProgress = WorkOrder::where('status', 1)->where('userId', auth()->user()->id)->count();
+        $woDone = WorkOrder::where('status', 2)->where('userId', auth()->user()->id)->count();
+
+        $workOrders = WorkOrder::with('categoryWo')->where('userId', auth()->user()->id)->get();
+
+        $categoryCollection = Category::all();
+
+        return view('user.work_order.my_request', [
+            'title' => 'My Request',
+            'woPending' => $woPending,
+            'woProgress' => $woProgress,
+            'woDone' => $woDone,
+            'workOrders' => $workOrders,
+            'categoryCollection' => $categoryCollection,
+            'section' => 'Work Order',
+            'desc' => 'My request work order',
+            'active' => 'My Request'
         ]);
     }
 }

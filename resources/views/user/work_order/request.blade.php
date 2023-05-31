@@ -117,7 +117,7 @@
                             </span>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Hourly Estimate</label>
                         <input type="number" id="estimate_hours" pattern="[0-9]" class="form-control @error('estimate') is-invalid @enderror" name="estimate" value="{{ old('estimate') }}" required>
                         @error('estimate')
@@ -125,7 +125,7 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label>Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description') }}" required></textarea>
