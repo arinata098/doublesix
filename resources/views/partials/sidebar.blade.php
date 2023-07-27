@@ -34,7 +34,8 @@
 
             </ul>
           </li>
-          <li class="{{ ($section === "Report") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.report') }}"><i class="fas fa-layer-group"></i> <span>Report</span></a></li>
+          {{-- <li class="{{ ($section === "Report") ? 'active' : '' }}"><a class="nav-link" href="{{ route('wo.report') }}"><i class="fas fa-layer-group"></i> <span>Report</span></a></li> --}}
+          <li class="{{ ($section === "Report") ? 'active' : '' }}"><a class="nav-link" href="{{ route('report.depart') }}"><i class="fas fa-layer-group"></i> <span>Report By Depart</span></a></li>
          
           @else
          

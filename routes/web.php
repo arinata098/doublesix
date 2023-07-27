@@ -34,6 +34,7 @@ Route::middleware('is_admin')->group(function () {
     // dashboard
     Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'adminDashboard'])->name('admin.dashboard');
     Route::get('/wo/report', [App\Http\Controllers\WorkOrderController::class, 'report'])->name('wo.report');
+    Route::get('/wo/reportByDepart', [App\Http\Controllers\WorkOrderController::class, 'reportByDepartment'])->name('report.depart');
 
     // master department
     Route::get('/admin/user', [App\Http\Controllers\UserController::class, 'index'])->name('master.user');

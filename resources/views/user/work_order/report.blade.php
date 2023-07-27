@@ -13,7 +13,7 @@
   <div class="section-body">
     <div class="d-flex flex-row justify-content-between">
       <div class="d-none d-md-block col-lg-4">
-        <h2 class="section-title">{{ $section }}</h2>
+        <h2 class="section-title">{{ $section }} @if (session('deptName')) for Department {{ session('deptName') }} @endif </h2>
         <p class="section-lead">
           {{ $desc }}
         </p>
