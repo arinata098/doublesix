@@ -29,7 +29,7 @@
 
       <div class="row">
         <div class="col-12 col-md-6 col-lg-12">
-            <form action="{{ route('wo.update', $workOrder->idWorkOrder) }}" method="POST">
+            <form action="{{ route('wo.update', $workOrder->idWorkOrder) }}" enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -115,6 +115,20 @@
                           </span>
                       @enderror
                     </div>
+                    <div class="form-group">
+                      <label>Photo</label>
+                      <input type="file" name="file" class="form-control"></input>
+                      <span class="text-danger fs-8 mt-1 mx-2">
+                        Max file size : 2 mb
+                      </span>
+                    </div>
+
+                    <!-- Menampilkan foto yang telah diunggah -->
+                    @if ($workOrder->photo)
+                    <img src="{{ asset('uploads/' . $workOrder->photo) }}" alt="User Photo">
+                    @else
+                    <p>Belum ada foto yang diunggah</p>
+                    @endif
 
                     </div>
                     <div class="card-footer text-right">

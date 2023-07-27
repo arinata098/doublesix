@@ -32,6 +32,33 @@
 
     <div class="row">
 
+      <div class="col-12 col-md-4 col-lg-4 mb-4">
+        <div class="hero bg-warning text-white">
+          <div class="hero-inner">
+            <h1>{{ $woPending }}</h1>
+            <p class="lead">Request work order has Pending.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 col-lg-4 mb-4">
+        <div class="hero bg-primary text-white">
+          <div class="hero-inner">
+            <h1>{{ $woProgress }}</h1>
+            <p class="lead">Request work order has On Progress.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4 col-lg-4 mb-4">
+        <div class="hero bg-success text-white">
+          <div class="hero-inner">
+            <h1>{{ $woDone }}</h1>
+            <p class="lead">Request work order has Done.</p>
+          </div>
+        </div>
+      </div>
+
       <div class="col-12 col-lg-12">
         <div class="card">
           <div class="card-header">
@@ -72,34 +99,10 @@
                   @endforeach
                 </tbody>
               </table>
+              <div class="d-flex justify-content-end mr-3 mt-3">
+                {{ $workOrders->links() }}
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-4 mb-4">
-        <div class="hero bg-warning text-white">
-          <div class="hero-inner">
-            <h1>{{ $woPending }}</h1>
-            <p class="lead">Request work order has Pending.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-4 mb-4">
-        <div class="hero bg-primary text-white">
-          <div class="hero-inner">
-            <h1>{{ $woProgress }}</h1>
-            <p class="lead">Request work order has On Progress.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-4 col-lg-4 mb-4">
-        <div class="hero bg-success text-white">
-          <div class="hero-inner">
-            <h1>{{ $woDone }}</h1>
-            <p class="lead">Request work order has Done.</p>
           </div>
         </div>
       </div>

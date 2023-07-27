@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\WorkOrder;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +88,7 @@ class WorkOrderController extends Controller
     public function received()
     {
         // data category
-        $workOrders = WorkOrder::with('deptFrom', 'userWo')->where('toDept', auth()->user()->idDept)->get();
+        $workOrders = WorkOrder::with('deptFrom', 'userWo')->where('toDept', auth()->user()->idDept)->orderByDesc('created_at')->paginate(5);
 
         $totalWo = WorkOrder::where('toDept', auth()->user()->idDept)->count();
 
@@ -124,11 +125,20 @@ class WorkOrderController extends Controller
         }
 
         try{
+
+            $fileName = null;
+            if ($request->file('file')) {
+                $file = $request->file('file');
+                $fileName = Str::slug(Carbon::now()) . '-' . $file->getClientOriginalName();
+                $file->move(public_path('uploads'), $fileName);
+            }
+
             $workOrder->endWorkOrder = $request->endWorkOrder;
             $workOrder->completeBy = $request->completeBy;
             $workOrder->estimate = $request->estimate;
             $workOrder->status = $request->status;
             $workOrder->note = $request->note;
+            $workOrder->photo = $fileName;
             
             $workOrder->save();
 
@@ -164,7 +174,8 @@ class WorkOrderController extends Controller
             $workOrders = WorkOrder::with('categoryWo')
                             ->where('idCategory', $request->idCategory)
                             ->whereBetween('startWorkOrder', [$startDate, $endDate])
-                            ->get();
+                            ->orderByDesc('created_at')
+                            ->paginate(10);
         } elseif ($request->awal && $request->akhir) {
             // get data wo dengan tanggal
             $startDate = $request->awal;
@@ -182,14 +193,17 @@ class WorkOrderController extends Controller
                             
             $workOrders = WorkOrder::with('categoryWo')
                             ->whereBetween('startWorkOrder', [$startDate, $endDate])
-                            ->get();
+                            ->orderByDesc('created_at')
+                            ->paginate(10);
         } else {
             // data semua workorder
             $woPending = WorkOrder::where('status', 0)->count();
             $woProgress = WorkOrder::where('status', 1)->count();
             $woDone = WorkOrder::where('status', 2)->count();
 
-            $workOrders = WorkOrder::with('categoryWo')->get();
+            $workOrders = WorkOrder::with('categoryWo')
+                            ->orderByDesc('created_at')
+                            ->paginate(10);
         }
         
         $categoryCollection = Category::all();
@@ -228,7 +242,7 @@ class WorkOrderController extends Controller
         $woProgress = WorkOrder::where('status', 1)->where('userId', auth()->user()->id)->count();
         $woDone = WorkOrder::where('status', 2)->where('userId', auth()->user()->id)->count();
 
-        $workOrders = WorkOrder::with('categoryWo')->where('userId', auth()->user()->id)->get();
+        $workOrders = WorkOrder::with('categoryWo')->where('userId', auth()->user()->id)->orderByDesc('created_at')->paginate(5);
 
         $categoryCollection = Category::all();
 

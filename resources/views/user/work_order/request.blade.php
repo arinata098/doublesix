@@ -107,15 +107,32 @@
                         <select name="idLocation" class="form-control select2 @error('idLocation') is-invalid @enderror" required>
                             <option value="" selected>Select Location</option>
                                 @foreach ($locationCollection as $location)
-                                <option value="{{ $location->idLocation }}" @if ($location->idLocation == old('location')) selected
+                                <option value="{{ $location->idLocation }}" data-description="{{ $location->description }}" @if ($location->idLocation == old('location')) selected
                                     @endif>{{ $location->locationName }}</option>
                                 @endforeach
                         </select>
                         @error('idLocation')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
+
+                        <textarea id="locationDescriptionTextarea" placeholder="Location Description" class="form-control" name="description" disabled></textarea>
+                        <script>
+                            const selectElement = document.querySelector('select[name="idLocation"]');
+                            const textareaElement = document.getElementById('locationDescriptionTextarea');
+                        
+                            selectElement.addEventListener('change', (event) => {
+                                const selectedOption = event.target.options[event.target.selectedIndex];
+                                const description = selectedOption.getAttribute('data-description');
+                                textareaElement.value = description;
+                            });
+                        
+                            // Inisialisasi nilai textarea saat halaman pertama kali dimuat
+                            const initialOption = selectElement.options[selectElement.selectedIndex];
+                            const initialDescription = initialOption.getAttribute('data-description');
+                            textareaElement.value = initialDescription;
+                        </script>
                     </div>
                     {{-- <div class="form-group">
                         <label>Hourly Estimate</label>

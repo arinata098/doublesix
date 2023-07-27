@@ -95,6 +95,13 @@
                       <input type="text" class="form-control" value="{{ $workOrder->note }}" disabled></input>
                     </div>
 
+                    <!-- Menampilkan foto yang telah diunggah -->
+                    @if ($workOrder->photo)
+                    <img src="{{ asset('uploads/' . $workOrder->photo) }}" alt="User Photo">
+                    @else
+                    <p>Belum ada foto yang diunggah</p>
+                    @endif
+
                     </div>
                     <div class="card-footer text-right">
                         <a href="{{ url()->previous() }}" class="btn btn-primary mr-1">Back</a>

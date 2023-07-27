@@ -25,7 +25,8 @@ class WorkOrder extends Model
         'description',
         'status',
         'completeBy',
-        'note'
+        'photo',
+        'note',
     ];
 
     public $timestamps = true;
