@@ -97,7 +97,7 @@
 
                     <!-- Menampilkan foto yang telah diunggah -->
                     @if ($workOrder->photo)
-                    <img src="{{ asset('uploads/' . $workOrder->photo) }}" alt="User Photo">
+                    <a href="{{ asset('uploads/' . $workOrder->photo) }}" target="blank"><img src="{{ asset('uploads/' . $workOrder->photo) }}" alt="User Photo" width="20%"></a>
                     @else
                     <p>Belum ada foto yang diunggah</p>
                     @endif
