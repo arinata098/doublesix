@@ -56,6 +56,7 @@
                 <thead>
                   <tr>
                     <th>Category Name</th>
+                    <th>Department Section</th>
                     <th>Description</th>
                     <th>Action</th>
                   </tr>
@@ -64,6 +65,7 @@
                   @foreach ($categories as $category)
                   <tr>
                     <td>{{ $category->cateName }}</td>
+                    <td>{{ $category->department->deptName }}</td>
                     <td>{{ $category->description }}</td>
                     <td>
                       <a href="{{ route('category.edit', $category->idCategory) }}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>

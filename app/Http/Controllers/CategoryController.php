@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Department;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         // data category
-        $categories = Category::all();
+        $categories = Category::with('department')->get();
 
         return view('admin.work.category.index', [
             'title' => 'Category',
@@ -26,8 +27,11 @@ class CategoryController extends Controller
 
     public function create()
     {
+        $departmentCollection = Department::all();
+
         return view('admin.work.category.create', [
             'title' => 'Category',
+            'departmentCollection' => $departmentCollection,
             'section' => 'Category',
             'desc' => 'This page is used to edit the master category data',
             'active' => 'Work Order'
@@ -39,6 +43,7 @@ class CategoryController extends Controller
         // validasi input yang didapatkan dari request
         $validator = Validator::make($request->all(), [
             'category_name' => 'required|string|max:255',
+            'idDept' => 'required',
             'category_desc' => 'required',
         ]);
 
@@ -54,6 +59,7 @@ class CategoryController extends Controller
             // insert ke tabel categorys
             Category::create([
                 'cateName' => $request->category_name,
+                'idDept' => $request->idDept,
                 'description' => $request->category_desc
             ]);
 
@@ -76,9 +82,12 @@ class CategoryController extends Controller
             return redirect()->back()->with('errorDatanotfound', 'Data not found');
         }
 
+        $departmentCollection = Department::all();
+
         return view('admin.work.category.edit', [
             'title' => 'category',
             'category' => $category,
+            'departmentCollection' => $departmentCollection,
             'desc' => 'This page is used to edit the master category data',
             'section' => 'category',
             'active' => 'Master Data'
@@ -95,6 +104,7 @@ class CategoryController extends Controller
 
         try{
             $category->cateName = $request->category_name;
+            $category->idDept = $request->idDept;
             $category->description = $request->category_desc;
             // Lakukan update sesuai dengan kolom yang ingin diubah
             // ...

@@ -61,7 +61,7 @@
                         <select name="idCategory" class="form-control select2 @error('idCategory') is-invalid @enderror" required>
                             <option value="" selected>Select Category</option>
                                 @foreach ($categoryCollection as $category)
-                                <option value="{{ $category->idCategory }}" @if ($category->idCategory == old('category')) selected
+                                <option value="{{ $category->idCategory }}" data-department="{{ $category->department->idDept }}" @if ($category->idCategory == old('category')) selected
                                     @endif>{{ $category->cateName }}</option>
                                 @endforeach
                         </select>
@@ -88,7 +88,8 @@
                       </div>
                       <div class="form-group col-lg-6">
                         <label>To Department</label>
-                        <select name="toDept" class="form-control select2 @error('toDept') is-invalid @enderror" required>
+
+                        <select name="toDept" class="form-control select2" disabled required>
                           <option value="" selected>Select Department</option>
                               @foreach ($departmentCollection as $department)
                               <option value="{{ $department->idDept }}" @if ($department->idDept == old('toDept')) selected
@@ -100,6 +101,26 @@
                               <strong>{{ $message }}</strong>
                           </span>
                         @enderror
+                        <script>
+                            const categorySelect = document.querySelector('select[name="idCategory"]');
+                            const toDeptSelect = document.querySelector('select[name="toDept"]');
+                        
+                            categorySelect.addEventListener('change', (event) => {
+                                const selectedOption = event.target.options[event.target.selectedIndex];
+                                const departmentId = selectedOption.getAttribute('data-department');
+                        
+                                // Mengaktifkan dropdown "To Department"
+                                toDeptSelect.removeAttribute('disabled');
+                        
+                                // Memilih opsi yang sesuai di dropdown "To Department"
+                                const departmentOptions = toDeptSelect.options;
+                                for (const option of departmentOptions) {
+                                    if (option.value === departmentId) {
+                                        option.selected = true;
+                                    }
+                                }
+                            });
+                        </script>
                       </div>
                     </div>
                     <div class="form-group">

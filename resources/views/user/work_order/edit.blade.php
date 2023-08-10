@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <label>completeBy</label>
-                        @if (Auth::user()->is_admin == 1)
+                        @if (Auth::user()->is_admin == 1 || Auth::user()->idPosition == 6)
                         <select name="completeBy" 
                           class="form-control select2 @error('completeBy') is-invalid @enderror" required>
                             <option value="" selected>Select User</option>
@@ -101,7 +101,7 @@
                                 @endforeach
                         </select>
                         @endif 
-                        @if (Auth::user()->is_admin == 0)
+                        @if (Auth::user()->is_admin == 0 && Auth::user()->idPosition == 4)
                           <input type="text" readonly class="form-control @error('completeBy') is-invalid @enderror" name="completeBy" value="{{ $workOrder->completeBy }}" required>
                         @endif
                     </div>

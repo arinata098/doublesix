@@ -25,7 +25,7 @@ class WorkOrderController extends Controller
     {
         $departmentCollection = Department::all();
         $locationCollection = Location::all();
-        $categoryCollection = Category::all();
+        $categoryCollection = Category::with('department')->get();
 
         return view('user.work_order.request', [
             'title' => 'Request',

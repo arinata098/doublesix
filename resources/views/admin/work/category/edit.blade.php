@@ -36,6 +36,21 @@
                         <input type="text" name="category_name" value="{{ $category->cateName }}" class="form-control" required>
                     </div>
                     <div class="form-group">
+                      <label>Department</label>
+                      <select name="idDept" class="form-control select2 @error('idDept') is-invalid @enderror" required>
+                        <option value="" selected>Select Department</option>
+                            @foreach ($departmentCollection as $department)
+                            <option value="{{ $department->idDept }}" @if ($department->idDept == $category->idDept) selected
+                                @endif>{{ $department->deptName }}</option>
+                            @endforeach
+                      </select>
+                      @error('idDept')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                    </div>
+                    <div class="form-group">
                         <label>Description</label>
                         <textarea class="form-control" name="category_desc" value="{{ $category->description }}" required></textarea>
                     </div>

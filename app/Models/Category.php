@@ -13,12 +13,18 @@ class Category extends Model
     protected $primaryKey = 'idCategory';
 
     protected $fillable = [
+        'idDept',
         'cateName',
-        'description'
+        'description',
     ];
 
     public $timestamps = true;
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'idDept', 'idDept');
+    }
 }
