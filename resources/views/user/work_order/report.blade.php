@@ -29,6 +29,22 @@
               <!--begin::Input-->
               <div class="position-relative d-inline align-items-center">
                 <!--begin::Datepicker-->
+                <label class="mt-2">Complete By</label>
+                <select name="completeBy" class="form-control select2">
+                  <option value="" selected>Select User</option>
+                      @foreach ($deptUser as $user)
+                      <option value="{{ $user->name }}">{{ $user->name }}</option>
+                      @endforeach
+                </select>
+                <!--end::Datepicker-->
+              </div>
+              <!--end::Input-->
+            </div>
+            <!--end::Input group-->
+            <div class="mb-10 col-lg-3 mr-2">
+              <!--begin::Input-->
+              <div class="position-relative d-inline align-items-center">
+                <!--begin::Datepicker-->
                 <label class="mt-2">From Date</label>
                 <input class="form-control form-control-solid ps-12" required type="date" placeholder="Select a date" name="awal" />
                 <!--end::Datepicker-->

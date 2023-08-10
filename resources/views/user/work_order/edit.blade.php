@@ -87,7 +87,23 @@
                     </div>
                     <div class="form-group">
                         <label>completeBy</label>
-                        <input type="text" readonly class="form-control @error('completeBy') is-invalid @enderror" name="completeBy" value="{{ Auth::user()->name }}" required>
+                        @if (Auth::user()->is_admin == 1)
+                        <select name="completeBy" 
+                          class="form-control select2 @error('completeBy') is-invalid @enderror" required>
+                            <option value="" selected>Select User</option>
+                                @foreach ($deptUser as $user)
+                                <option value="{{ $user->name }}" 
+                                  @if ($user->id == old('completeBy')) selected @endif
+                                  @if ($user->name === $workOrder->completeBy) selected @endif
+                                >
+                                  {{ $user->name }}
+                                </option>
+                                @endforeach
+                        </select>
+                        @endif 
+                        @if (Auth::user()->is_admin == 0)
+                          <input type="text" readonly class="form-control @error('completeBy') is-invalid @enderror" name="completeBy" value="{{ $workOrder->completeBy }}" required>
+                        @endif
                     </div>
                     <div class="form-group">
                       <label>Hourly Estimate</label>
@@ -108,7 +124,7 @@
                     </div>
                     <div class="form-group">
                       <label>Note</label>
-                      <textarea class="form-control @error('note') is-invalid @enderror" name="note" value="{{ old('note') }}" required></textarea>
+                      <input type="text" class="form-control @error('note') is-invalid @enderror" name="note" value="{{ $workOrder->note }}"></input>
                       @error('note')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

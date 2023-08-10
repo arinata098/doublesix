@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Location;
 use App\Models\Category;
 use App\Models\WorkOrder;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -106,10 +107,13 @@ class WorkOrderController extends Controller
     {
         // data category
         $workOrder = WorkOrder::with('deptFrom', 'deptTo', 'categoryWo', 'locationWo', 'userWo')->find($id);
-        
+
+        $deptUser = User::where('idDept', $workOrder->toDept)->get();
+
         return view('user.work_order.edit', [
             'title' => 'Edit',
             'workOrder' => $workOrder,
+            'deptUser' => $deptUser,
             'section' => 'Received',
             'desc' => 'This page is used to see received work order request',
             'active' => 'Work Order'
@@ -156,13 +160,49 @@ class WorkOrderController extends Controller
             session()->put('idDept', $request->idDept);
             session()->put('deptName', $request->deptName);
         } elseif (session('idDept')){
-            // $idDept = session('idDept');
+            // $idDept = session('idDept'); handle tapi jangan melakukan apa'' soalnya kalo ga di handle error wkwkw
         }
         else {
             return redirect()->back()->with('fail', 'Gagal tidak ada department yang dipilih!');
         }
         
-        if ($request->awal && $request->akhir) {
+        if ($request->awal && $request->akhir && $request->completeBy) {
+            // get data wo dengan tanggal
+            $startDate = $request->awal;
+            $endDate = $request->akhir;
+            $completeBy = $request->completeBy;
+
+            // simpan di session juga
+            session()->put('startDate', $request->awal);
+            session()->put('endDate', $request->akhir);
+            session()->put('completeBy', $request->completeBy);
+
+            $woPending = WorkOrder::where('status', 0)
+                            ->when(session()->has('idDept'), function ($query) {
+                                // Menambahkan kondisi where jika session 'idDept' di-set dan tidak null
+                                return $query->where('toDept', session('idDept'));
+                            })
+                            ->where('completeBy', $completeBy)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+            $woProgress = WorkOrder::where('status', 1)
+                            ->when(session()->has('idDept'), function ($query) {
+                                // Menambahkan kondisi where jika session 'idDept' di-set dan tidak null
+                                return $query->where('toDept', session('idDept'));
+                            })
+                            ->where('completeBy', $completeBy)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+            $woDone = WorkOrder::where('status', 2)
+                            ->when(session()->has('idDept'), function ($query) {
+                                // Menambahkan kondisi where jika session 'idDept' di-set dan tidak null
+                                return $query->where('toDept', session('idDept'));
+                            })
+                            ->where('completeBy', $completeBy)
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->count();
+
+        } elseif ($request->awal && $request->akhir) {
             // get data wo dengan tanggal
             $startDate = $request->awal;
             $endDate = $request->akhir;
@@ -192,32 +232,23 @@ class WorkOrderController extends Controller
                             })
                             ->whereBetween('startWorkOrder', [$startDate, $endDate])
                             ->count();
-                            
-            $workOrders = WorkOrder::with('categoryWo')
-                            ->when(session()->has('idDept'), function ($query) {
-                                // Menambahkan kondisi where jika session 'idDept' di-set dan tidak null
-                                return $query->where('toDept', session('idDept'));
-                            })
-                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
-                            ->orderByDesc('created_at')
-                            ->paginate(10);
+
         } else {
             // get data wo dengan tanggal
             $woPending = WorkOrder::where('status', 0)->where('toDept', $request->idDept)->count();
             $woProgress = WorkOrder::where('status', 1)->where('toDept', $request->idDept)->count();
             $woDone = WorkOrder::where('status', 2)->where('toDept', $request->idDept)->count();
                             
-            $workOrders = WorkOrder::with('categoryWo')
-                            ->where('toDept', $request->idDept)
-                            ->orderByDesc('created_at')
-                            ->paginate(10);
         }
+
+        $deptUser = User::where('idDept', $request->idDept)->get();
 
         return view('user.work_order.report', [
             'title' => 'Report',
             'woPending' => $woPending,
             'woProgress' => $woProgress,
             'woDone' => $woDone,
+            'deptUser' => $deptUser,
             'section' => 'Report',
             'desc' => 'Report work order request',
             'active' => 'Report'
@@ -227,7 +258,23 @@ class WorkOrderController extends Controller
     public function reportTable(Request $request)
     {
 
-        if (session('startDate') && session('endDate')) {
+        if (session('startDate') && session('endDate') && session('completeBy')) {
+            // get data wo dengan tanggal
+            $startDate = session('startDate');
+            $endDate = session('endDate');
+            $completeBy = session('completeBy');
+
+            $workOrders = WorkOrder::with('categoryWo')
+                            ->when(session()->has('idDept'), function ($query) {
+                                // Menambahkan kondisi where jika session 'idDept' di-set dan tidak null
+                                return $query->where('toDept', session('idDept'));
+                            })
+                            ->whereBetween('startWorkOrder', [$startDate, $endDate])
+                            ->where('status', $request->status)
+                            ->where('completeBy', $completeBy)
+                            ->orderByDesc('created_at')
+                            ->paginate(10);
+        } elseif (session('startDate') && session('endDate')) {
             // get data wo dengan tanggal
             $startDate = session('startDate');
             $endDate = session('endDate');
@@ -266,6 +313,7 @@ class WorkOrderController extends Controller
         session()->forget('deptName');
         session()->forget('startDate');
         session()->forget('endDate');
+        session()->forget('completeBy');
 
         $departmentCollection = Department::all();
 
@@ -301,15 +349,12 @@ class WorkOrderController extends Controller
 
         $workOrders = WorkOrder::with('categoryWo')->where('userId', auth()->user()->id)->orderByDesc('created_at')->paginate(5);
 
-        $categoryCollection = Category::all();
-
         return view('user.work_order.my_request', [
             'title' => 'My Request',
             'woPending' => $woPending,
             'woProgress' => $woProgress,
             'woDone' => $woDone,
             'workOrders' => $workOrders,
-            'categoryCollection' => $categoryCollection,
             'section' => 'My Request',
             'desc' => 'My request work order',
             'active' => 'My Request'
