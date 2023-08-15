@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         // data user
-        $users = User::with('department', 'position')->get();
+        $users = User::with('department', 'position')->paginate(5);
 
         return view('admin.master.user.index', [
             'title' => 'User',

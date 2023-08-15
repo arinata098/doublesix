@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         // data category
-        $categories = Category::with('department')->get();
+        $categories = Category::with('department')->paginate(5);
 
         return view('admin.work.category.index', [
             'title' => 'Category',

@@ -13,7 +13,7 @@ class PositionController extends Controller
     public function index()
     {
         // data position
-        $positions = Position::all();
+        $positions = Position::paginate(5);
 
         return view('admin.master.position.index', [
             'title' => 'Position',
