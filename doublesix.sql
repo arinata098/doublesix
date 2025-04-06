@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 10 Agu 2023 pada 18.38
--- Versi server: 10.4.22-MariaDB
--- Versi PHP: 7.4.27
+-- Generation Time: Apr 06, 2025 at 02:28 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `categories`
+-- Table structure for table `categories`
 --
 
 CREATE TABLE `categories` (
-  `idCategory` int(20) NOT NULL,
-  `idDept` int(20) NOT NULL,
-  `cateName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idCategory` int NOT NULL,
+  `idDept` int NOT NULL,
+  `cateName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `categories`
+-- Dumping data for table `categories`
 --
 
 INSERT INTO `categories` (`idCategory`, `idDept`, `cateName`, `description`, `created_at`, `updated_at`) VALUES
@@ -47,19 +47,19 @@ INSERT INTO `categories` (`idCategory`, `idDept`, `cateName`, `description`, `cr
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `departments`
+-- Table structure for table `departments`
 --
 
 CREATE TABLE `departments` (
-  `idDept` int(20) NOT NULL,
-  `deptName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idDept` int NOT NULL,
+  `deptName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `departments`
+-- Dumping data for table `departments`
 --
 
 INSERT INTO `departments` (`idDept`, `deptName`, `description`, `created_at`, `updated_at`) VALUES
@@ -71,36 +71,36 @@ INSERT INTO `departments` (`idDept`, `deptName`, `description`, `created_at`, `u
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `id` bigint UNSIGNED NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `locations`
+-- Table structure for table `locations`
 --
 
 CREATE TABLE `locations` (
-  `idLocation` int(20) NOT NULL,
-  `locationName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `locationDetail` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idLocation` int NOT NULL,
+  `locationName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `locationDetail` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `locations`
+-- Dumping data for table `locations`
 --
 
 INSERT INTO `locations` (`idLocation`, `locationName`, `locationDetail`, `description`, `created_at`, `updated_at`) VALUES
@@ -110,17 +110,17 @@ INSERT INTO `locations` (`idLocation`, `locationName`, `locationDetail`, `descri
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
+  `id` int UNSIGNED NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -137,28 +137,28 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `personal_access_tokens`
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -167,19 +167,19 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `positions`
+-- Table structure for table `positions`
 --
 
 CREATE TABLE `positions` (
-  `idPosition` int(20) NOT NULL,
-  `positionName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idPosition` int NOT NULL,
+  `positionName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `positions`
+-- Dumping data for table `positions`
 --
 
 INSERT INTO `positions` (`idPosition`, `positionName`, `description`, `created_at`, `updated_at`) VALUES
@@ -192,111 +192,113 @@ INSERT INTO `positions` (`idPosition`, `positionName`, `description`, `created_a
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
-  `status` tinyint(4) NOT NULL,
-  `idDept` int(20) NOT NULL,
-  `idPosition` int(20) NOT NULL,
+  `id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint NOT NULL,
+  `idDept` int NOT NULL,
+  `idPosition` int NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `is_admin`, `status`, `idDept`, `idPosition`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(3, 'admin', 'admin@gmail.com', 1, 1, 1, 1, NULL, '$2a$12$rrK/QlUWnzchr/qHHldd2e.eBPvHRXshZHmbld135SykLXgBs0tsK', NULL, NULL, NULL),
-(4, 'user', 'user@gmail.com', 0, 0, 2, 6, NULL, '$2a$12$rrK/QlUWnzchr/qHHldd2e.eBPvHRXshZHmbld135SykLXgBs0tsK', NULL, NULL, '2023-08-10 08:15:02'),
+(3, 'admin', 'admin@gmail.com', 1, 1, 1, 1, NULL, '$2a$12$HazbdA2eouweMnz8umqtIuEHJ9oDuiY9ETzpnS7EJmxtRi2z3vP.y', NULL, NULL, NULL),
+(4, 'user', 'user@gmail.com', 0, 0, 2, 6, NULL, '$2a$12$HazbdA2eouweMnz8umqtIuEHJ9oDuiY9ETzpnS7EJmxtRi2z3vP.y', NULL, NULL, '2023-08-10 08:15:02'),
 (5, 'Arinata', 'arinata@gmail.com', 0, 1, 2, 4, NULL, '$2a$12$rrK/QlUWnzchr/qHHldd2e.eBPvHRXshZHmbld135SykLXgBs0tsK', NULL, '2023-05-18 22:26:08', '2023-08-10 08:15:11'),
 (9, 'Bayu', 'bydenuxy@mailinator.com', 1, 1, 3, 4, NULL, '$2a$12$rrK/QlUWnzchr/qHHldd2e.eBPvHRXshZHmbld135SykLXgBs0tsK', NULL, '2023-05-18 22:48:43', '2023-05-18 22:48:43');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `work_orders`
+-- Table structure for table `work_orders`
 --
 
 CREATE TABLE `work_orders` (
-  `idWorkOrder` bigint(20) UNSIGNED NOT NULL,
-  `workOrderName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` bigint(20) UNSIGNED NOT NULL,
-  `fromDept` int(20) NOT NULL,
-  `toDept` int(20) NOT NULL,
-  `idCategory` int(20) NOT NULL,
-  `idLocation` int(20) NOT NULL,
+  `idWorkOrder` bigint UNSIGNED NOT NULL,
+  `workOrderName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` bigint UNSIGNED NOT NULL,
+  `fromDept` int NOT NULL,
+  `toDept` int NOT NULL,
+  `idCategory` int NOT NULL,
+  `idLocation` int NOT NULL,
   `startWorkOrder` date NOT NULL,
   `endWorkOrder` date DEFAULT NULL,
-  `estimate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 = Pending\r\n1 = On Progress\r\n2 = Done',
-  `completeBy` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estimate` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = Pending\r\n1 = On Progress\r\n2 = Done',
+  `completeBy` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `work_orders`
+-- Dumping data for table `work_orders`
 --
 
 INSERT INTO `work_orders` (`idWorkOrder`, `workOrderName`, `userId`, `fromDept`, `toDept`, `idCategory`, `idLocation`, `startWorkOrder`, `endWorkOrder`, `estimate`, `description`, `status`, `completeBy`, `note`, `photo`, `created_at`, `updated_at`) VALUES
-(15, 'Maris Rodriguez', 3, 1, 2, 8, 1, '2023-08-10', NULL, NULL, 'Pariatur Tempora vo', 0, NULL, NULL, NULL, '2023-08-10 08:30:12', '2023-08-10 08:30:12');
+(15, 'Maris Rodriguez', 3, 1, 2, 8, 1, '2023-08-10', NULL, NULL, 'Pariatur Tempora vo', 0, NULL, NULL, NULL, '2023-08-10 08:30:12', '2023-08-10 08:30:12'),
+(16, 'Graiden Deleon', 4, 2, 6, 9, 2, '2025-04-06', NULL, NULL, 'Dolor aute architect', 0, NULL, NULL, NULL, '2025-04-05 18:27:44', '2025-04-05 18:27:44'),
+(17, 'Gwendolyn Garcia', 4, 2, 2, 8, 1, '2025-04-06', NULL, NULL, 'Ut dolores nisi in d', 0, NULL, NULL, NULL, '2025-04-05 18:28:07', '2025-04-05 18:28:07');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `categories`
+-- Indexes for table `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`idCategory`),
   ADD KEY `idDept` (`idDept`);
 
 --
--- Indeks untuk tabel `departments`
+-- Indexes for table `departments`
 --
 ALTER TABLE `departments`
   ADD PRIMARY KEY (`idDept`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indeks untuk tabel `locations`
+-- Indexes for table `locations`
 --
 ALTER TABLE `locations`
   ADD PRIMARY KEY (`idLocation`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indeks untuk tabel `personal_access_tokens`
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -304,13 +306,13 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indeks untuk tabel `positions`
+-- Indexes for table `positions`
 --
 ALTER TABLE `positions`
   ADD PRIMARY KEY (`idPosition`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -319,7 +321,7 @@ ALTER TABLE `users`
   ADD KEY `position_id` (`idPosition`);
 
 --
--- Indeks untuk tabel `work_orders`
+-- Indexes for table `work_orders`
 --
 ALTER TABLE `work_orders`
   ADD PRIMARY KEY (`idWorkOrder`),
@@ -330,82 +332,82 @@ ALTER TABLE `work_orders`
   ADD KEY `idLocation` (`idLocation`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `categories`
+-- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `idCategory` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idCategory` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `departments`
+-- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `idDept` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idDept` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `locations`
+-- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `idLocation` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idLocation` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT untuk tabel `personal_access_tokens`
+-- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `positions`
+-- AUTO_INCREMENT for table `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `idPosition` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idPosition` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `work_orders`
+-- AUTO_INCREMENT for table `work_orders`
 --
 ALTER TABLE `work_orders`
-  MODIFY `idWorkOrder` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idWorkOrder` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `categories`
+-- Constraints for table `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`idDept`) REFERENCES `departments` (`idDept`);
 
 --
--- Ketidakleluasaan untuk tabel `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `department_id` FOREIGN KEY (`idDept`) REFERENCES `departments` (`idDept`),
   ADD CONSTRAINT `position_id` FOREIGN KEY (`idPosition`) REFERENCES `positions` (`idPosition`);
 
 --
--- Ketidakleluasaan untuk tabel `work_orders`
+-- Constraints for table `work_orders`
 --
 ALTER TABLE `work_orders`
   ADD CONSTRAINT `work_orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
